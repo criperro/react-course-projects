@@ -7,119 +7,83 @@ console.log('App.js is running!');
 var headers = {
   title: 'Cristian Peralta',
   subtitle: 'This is some info',
-  options: ['One', 'Two']
+  options: []
 };
 
-var template = React.createElement(
-  'div',
-  null,
-  React.createElement(
-    'h1',
-    null,
-    headers.title
-  ),
-  headers.subtitle && React.createElement(
-    'p',
-    null,
-    headers.subtitle
-  ),
-  React.createElement(
-    'p',
-    null,
-    headers.options && headers.options.length > 0 ? 'Here are your options' : 'No options'
-  ),
-  React.createElement(
-    'ol',
-    null,
-    React.createElement(
-      'li',
-      null,
-      'Item one'
-    ),
-    React.createElement(
-      'li',
-      null,
-      'Item two'
-    )
-  )
-);
-
-var count = 0;
-
-var addOne = function addOne() {
-  count++;
-  console.log('add one');
-  renderCounterApp();
+var onFormSubmit = function onFormSubmit(e) {
+  e.preventDefault();
+  var option = e.target.elements.option.value;
+  console.log("el valor es " + option);
+  if (option) {
+    headers.options.push(option);
+    e.target.elements.option.value = '';
+    renderTemplate();
+  }
 };
 
-var minusOne = function minusOne() {
-  count--;
-  renderCounterApp();
+var onRemoveAll = function onRemoveAll() {
+  headers.options = [];
+  renderTemplate();
 };
-
-var resetButton = function resetButton() {
-  count = 0;
-  renderCounterApp();
-};
-
-var templateTwo = React.createElement(
-  'div',
-  null,
-  React.createElement(
-    'h1',
-    null,
-    'Count: ',
-    count
-  ),
-  React.createElement(
-    'button',
-    { onClick: addOne },
-    '+1'
-  ),
-  React.createElement(
-    'button',
-    { onClick: minusOne },
-    '-1'
-  ),
-  React.createElement(
-    'button',
-    { onClick: resetButton },
-    'Reset'
-  )
-);
 
 var appRoot = document.getElementById('app');
 
-ReactDOM.render(templateTwo, appRoot);
-
-var renderCounterApp = function renderCounterApp() {
-  var templateTwo = React.createElement(
+var renderTemplate = function renderTemplate() {
+  var template = React.createElement(
     'div',
     null,
     React.createElement(
       'h1',
       null,
-      'Count: ',
-      count
+      headers.title
+    ),
+    headers.subtitle && React.createElement(
+      'p',
+      null,
+      headers.subtitle
+    ),
+    React.createElement(
+      'p',
+      null,
+      headers.options && headers.options.length > 0 ? 'Here are your options' : 'No options'
+    ),
+    React.createElement(
+      'p',
+      null,
+      headers.options.length
+    ),
+    React.createElement(
+      'ol',
+      null,
+      React.createElement(
+        'li',
+        null,
+        'Item one'
+      ),
+      React.createElement(
+        'li',
+        null,
+        'Item two'
+      )
     ),
     React.createElement(
       'button',
-      { onClick: addOne },
-      '+1'
+      { onClick: onRemoveAll },
+      'Remove All'
     ),
     React.createElement(
-      'button',
-      { onClick: minusOne },
-      '-1'
-    ),
-    React.createElement(
-      'button',
-      { onClick: resetButton },
-      'Reset'
+      'form',
+      { onSubmit: onFormSubmit },
+      React.createElement('input', { type: 'text', name: 'option' }),
+      React.createElement(
+        'button',
+        null,
+        'Add Option'
+      )
     )
   );
 
-  ReactDOM.render(templateTwo, appRoot);
+  ReactDOM.render(template, appRoot);
 };
 
-renderCounterApp();
+renderTemplate();
