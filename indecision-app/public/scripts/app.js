@@ -53,23 +53,20 @@ var renderTemplate = function renderTemplate() {
       headers.options.length
     ),
     React.createElement(
-      'ol',
-      null,
-      React.createElement(
-        'li',
-        null,
-        'Item one'
-      ),
-      React.createElement(
-        'li',
-        null,
-        'Item two'
-      )
-    ),
-    React.createElement(
       'button',
       { onClick: onRemoveAll },
       'Remove All'
+    ),
+    React.createElement(
+      'ol',
+      null,
+      headers.options.map(function (option) {
+        return React.createElement(
+          'li',
+          { key: option },
+          option
+        );
+      })
     ),
     React.createElement(
       'form',
