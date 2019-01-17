@@ -1,55 +1,56 @@
-console.log('App.js is running!');
-
-// JSX - JavaScript XML
-
-const headers = {
-  title: 'Cristian Peralta',
-  subtitle: 'This is some info',
-  options: []
-};
-
-const onFormSubmit = (e) => {
-  e.preventDefault();
-  const option = e.target.elements.option.value;
-  console.log("el valor es " + option);
-  if(option){
-    headers.options.push(option);
-    e.target.elements.option.value = '';
-    renderTemplate();
+class Header extends React.Component {
+  render(){
+    return (
+      <div>
+        <h1>Indecision</h1>
+        <h2>Put your life in the hands of a computer</h2>
+      </div>
+    );
   }
-};
+}
 
-const onRemoveAll = () => {
-  headers.options = [];
-  renderTemplate();
-};
+class Action extends React.Component {
+  render(){
+    return (
+      <div>
+        <button>What should I do?</button>
+      </div>
+    );
+  }
+}
 
-const appRoot = document.getElementById('app');
+class Options extends React.Component {
+  render(){
+    return(
+      <div>
+        <ol>
+          <li>Option 1</li>
+          <li>Option 2</li>
+        </ol>
+      </div>
+    );
+  }
+}
 
-const renderTemplate = () => {
-  const template = (
-    <div>
-      <h1>{headers.title}</h1>
-      {headers.subtitle && <p>{headers.subtitle}</p>}
-      <p>{(headers.options && headers.options.length > 0) ? 'Here are your options' : 'No options'}</p>
-      <p>{headers.options.length}</p>
-      <button onClick={onRemoveAll}>Remove All</button>
-      <ol>
-        {
-          headers.options.map((option) => {
-            return <li key={option}>{option}</li>
-          })
-        }
-      </ol>
-      <form onSubmit={onFormSubmit}>
+class AddOption extends React.Component {
+  render(){
+    return(
+      <form>
         <input type="text" name="option" />
-        <button >Add Option</button>
-        
+        <button >Add Option</button>  
       </form>
-    </div>
-  );
+    );
+    
+  }
+}
 
-  ReactDOM.render(template, appRoot);
-};
+const jsx = (
+  <div>
+    <Header />
+    <Action />
+    <Options />
+    <AddOption />
+  </div>
+);
 
-renderTemplate();
+ReactDOM.render(jsx, document.getElementById('app'));
