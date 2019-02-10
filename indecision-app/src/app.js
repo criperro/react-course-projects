@@ -10,6 +10,18 @@ class IndecisionApp extends React.Component {
     };
   }
 
+  componentDidMount(){ 
+    console.log("component did mount");
+  }
+
+  componentDidUpdate(prevProps, prevState){
+    console.log("component did update");
+  }
+
+  componentWillUnmount(){
+    console.log("component will unmount");
+  }
+
   handleDeleteOptions() {
     this.setState(() => ({ options: []}));
   }
@@ -69,7 +81,7 @@ const Header = (props) => {
   return (
     <div>
       <h1>{props.title}</h1>
-      { props.subtitle && <h2>props.subtitle</h2>}
+      { props.subtitle && <h2> { props.subtitle } </h2>}
     </div>
   );
 };
