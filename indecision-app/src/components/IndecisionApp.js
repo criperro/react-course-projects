@@ -7,7 +7,8 @@ import OptionModal from './OptionModal';
 
 export default class IndecisionApp extends React.Component {
   state = {
-    options: []
+    options: [],
+    selectedOption: undefined
   };
   
     componentDidMount(){ 
@@ -45,8 +46,7 @@ export default class IndecisionApp extends React.Component {
   
     handlePick = () => {
       const randomNum = Math.floor(Math.random() * this.state.options.length);
-      const option = this.state.options[randomNum];
-      alert(option);
+      this.setState({selectedOption: this.state.options[randomNum]});
     }
   
     handleAddOption = (option) => {
@@ -59,6 +59,10 @@ export default class IndecisionApp extends React.Component {
       this.setState((prevState) => ({
         options: prevState.options.concat([option])
       }));
+    }
+
+    handleDeleteModal = () => {
+      this.setState(() => ({selectedOption: undefined}));
     }
   
     render(){
@@ -80,6 +84,8 @@ export default class IndecisionApp extends React.Component {
             handleAddOption={this.handleAddOption}
           />
           <OptionModal 
+            selectedOption={this.state.selectedOption}
+            handleDeleteModal={this.handleDeleteModal}
           />
         </div>
       );
