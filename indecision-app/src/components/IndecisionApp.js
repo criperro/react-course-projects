@@ -66,11 +66,10 @@ export default class IndecisionApp extends React.Component {
     }
   
     render(){
-      const title = 'Indecision App';
       const subtitle = 'Put your life in the hands of a computer';
       return(
         <div>
-          <Header title={title} subtitle={subtitle} /> 
+          <Header subtitle={subtitle} /> 
           <div className="container">
             <Action 
               hasOptions={this.state.options.length > 0}
